@@ -34,7 +34,8 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { siteConfig } from '@/lib/config'
 import NotionIcon from '@/components/NotionIcon'
-import AlgoliaSearchModal from '@/components/AlgoliaSearchModal'
+
+const AlgoliaSearchModal = dynamic(() => import('@/components/AlgoliaSearchModal'), { ssr: false })
 const WWAds = dynamic(() => import('@/components/WWAds'), { ssr: false })
 
 // 主题全局变量
@@ -215,7 +216,22 @@ const LayoutPostList = (props) => {
  */
 const LayoutSlug = (props) => {
   const { post, prev, next, lock, validPassword } = props
-
+  const router = useRouter()
+  useEffect(() => {
+    // 404
+    if (!post) {
+      setTimeout(() => {
+        if (isBrowser) {
+          const article = document.getElementById('notion-article')
+          if (!article) {
+            router.push('/404').then(() => {
+              console.warn('找不到页面', router.asPath)
+            })
+          }
+        }
+      }, siteConfig('POST_WAITING_TIME_FOR_404') * 1000)
+    }
+  }, [post])
   return (
         <>
             {/* 文章锁 */}
@@ -354,7 +370,7 @@ export {
   LayoutArchive,
   LayoutSlug,
   Layout404,
-  LayoutCategoryIndex,
   LayoutPostList,
+  LayoutCategoryIndex,
   LayoutTagIndex
 }
