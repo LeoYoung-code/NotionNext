@@ -1,7 +1,7 @@
 {
   "name": "notion-next",
   "version": "4.8.3",
-  "homepage": "https://github.com/tangly1024/NotionNext.git",
+  "homepage": "https://github.com/LeoYoung-code",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   },
   "author": {
     "name": "leoyoung",
-    "email": "mail@tangly1024.com",
+    "email": "jokerchenxi@gmail.com",
     "url": "https://github.com/LeoYoung-code"
   },
   "scripts": {
